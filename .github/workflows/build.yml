@@ -1,0 +1,15 @@
+name: Build PSP EBOOT
+on:
+  push:
+  workflow_dispatch:
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build with PSPDEV
+        run: docker run --rm -v "$PWD":/src -w /src pspdev/pspdev make
+      - uses: actions/upload-artifact@v4
+        with:
+          name: Bloodrain-PSP
+          path: EBOOT.PBP
